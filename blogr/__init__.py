@@ -5,8 +5,14 @@ def create_app():
     #Crear app de flask
     app = Flask(__name__)
 
-    @app.route('/')
-    def hola():
-        return 'Hola BLOG-POST'
+    #Registrar vistas
+    from blogr import home
+    app.register_blueprint(home.bp)
+
+    from blogr import auth
+    app.register_blueprint(auth.bp)
+
+    from blogr import post
+    app.register_blueprint(post.bp)
 
     return app
