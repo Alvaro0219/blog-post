@@ -64,6 +64,20 @@
     </header>
     {% endblock %}
 
+    {% for message in get_flashed_messages() %}
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    {% for message, alert_type in get_flashed_messages(with_categories=true) %}
+                        <div class="alert alert-{{ alert_type }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>  
+            </div>
+        </div>
+    {% endfor %}
+
     <!-- Sección de bloque de contenidio -->
     {% block content %}
     {% endblock %}
