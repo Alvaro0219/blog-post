@@ -26,10 +26,10 @@ def register():
             db.session.add(new_user)
             db.session.commit()
 
-            flash('Registro exitoso. Ahora puedes iniciar sesión.', 'success')
+            flash(('Registro exitoso. Ahora puedes iniciar sesión.', 'success'))
             return redirect(url_for('auth.login'))
         else:
-            flash(f'El correo {email} ya está registrado', 'danger')
+            flash((f'El correo {email} ya está registrado', 'danger'))
 
     return render_template('auth/register.html')
 
@@ -49,7 +49,7 @@ def login():
             flash('Inicio de sesión exitoso.', 'success')
             return redirect(url_for('post.posts'))
         else:
-            flash('Email o contraseña incorrecta', 'danger')
+            flash(('Email o contraseña incorrecta', 'danger'))
 
     return render_template('auth/login.html')
 
@@ -66,7 +66,7 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    flash('Sesión cerrada exitosamente.', 'success')
+    flash(('Sesión cerrada exitosamente.', 'success'))
     return redirect(url_for('home.index'))
 
 # Decorador para requerir inicio de sesión
@@ -74,7 +74,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
-            flash('Debes iniciar sesión para acceder a esta página.', 'danger')
+            flash(('Debes iniciar sesión para acceder a esta página.', 'danger'))
             return redirect(url_for('auth.login'))
         return view(**kwargs)
     return wrapped_view
