@@ -80,6 +80,40 @@ def login_required(view):
     return wrapped_view
 
 
-@bp.route('/profile')
-def profile():
-    return 'Pagina de profile'
+@bp.route('/profile/<int:id>', methods=('GET', 'POST'))
+@login_required
+def profile(id):
+    # Obtener el usuario actual
+    user = User.query.get_or_404(id)
+
+    if request.method == 'POST':
+        try:
+            # Obtener los datos del formulario
+            new_username = request.form.get('username')
+            new_email = request.form.get('email')
+            current_password = request.form.get('password')
+            new_password = request.form.get('new_password')
+
+            # Verificar la contraseña actual
+            if check_password_hash(user.password, current_password):
+                # Actualizar los datos del usuario
+                user.username = new_username
+                user.email = new_email
+
+                # Si se proporciona una nueva contraseña, hashearla y actualizarla
+                if new_password:
+                    user.password = generate_password_hash(new_password)
+
+                # Guardar los cambios en la base de datos
+                db.session.commit()
+
+                flash(('Perfil actualizado correctamente.', 'success'))
+                return redirect(url_for('auth.profile', id=id))
+            else:
+                flash(('Contraseña actual incorrecta. No se realizaron cambios.', 'danger'))
+        except Exception as e:
+            flash(('Error al actualizar el perfil. Por favor, inténtalo nuevamente.', 'danger'))
+            # Imprimir error
+            print(e)
+
+    return render_template('auth/profile.html', user=user)
