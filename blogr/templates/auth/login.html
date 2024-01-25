@@ -10,10 +10,17 @@
 {% endblock %}
 
 {% block content %} 
-
+    
     <!-- Login -->
     <section class="login">
         <main class="form-signin w-100 m-auto text-center">
+            <!-- Mostrar mensaje de resultado -->
+            {% if result_message %}
+            <div class="alert alert-{{ alert_type }}" role="alert">
+                {{ result_message }}
+            </div>
+            {% endif %}
+            
             <img class="mb-4" src="../img/bp-dark.png" alt="" width="72">
             <h1 class="h3 mb-3 fw-normal">{% block title %} Iniciar sesión {% endblock %}</h1>
             <form method="post">
