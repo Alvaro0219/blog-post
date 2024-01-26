@@ -5,6 +5,7 @@ from flask import (
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
 from blogr import db
+from werkzeug.utils import secure_filename
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -82,24 +83,11 @@ def login_required(view):
         return view(**kwargs)
     return wrapped_view
 
-#Funcion para subir fotos
-from werkzeug.utils import secure_filename
-
-def get_photo(id):
-    user = User.query.get_or_404(id)
-    photo = None
-
-    if photo != None:
-        photo = user.photo
-
-    return photo
-
 @bp.route('/profile/<int:id>', methods=('GET','POST'))
 @login_required
 def profile(id):
     # Obtener el usuario actual
     user = User.query.get_or_404(id)
-    photo = get_photo(id)
 
     # Inicializar result_message con None
     result_message = None
@@ -136,5 +124,5 @@ def profile(id):
         else:
             result_message = 'Contraseña actual incorrecta. No se realizaron cambios.'
 
-    return render_template('auth/profile.html', user=user, photo=photo, result_message=result_message)
+    return render_template('auth/profile.html', user=user, result_message=result_message)
 
