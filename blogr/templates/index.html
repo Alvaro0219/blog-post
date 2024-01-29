@@ -2,7 +2,7 @@
 {% block content %}
 
 <!-- Sección de bienvenida -->
-<section class="container">
+<section class="container" {{value}}>
     <div class="row">
         <div class="col-md-6 py-5">
             <h1 class="display-4 fst-italic">
@@ -43,9 +43,9 @@
             </p>
 
             <div class="col container">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" />
-                    <button type="button" class="btn btn-primary btn-lg">Buscar</button>
+                <form class="d-flex" method="post">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Buscar" aria-label="Search" />
+                    <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
                 </form>
             </div>
         </div>
