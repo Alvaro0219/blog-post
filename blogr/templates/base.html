@@ -96,8 +96,8 @@
     {% block content %}
     {% endblock %}
 
-
     <script src="{{ url_for('static', filename = 'js/bootstrap.bundle.min.js') }}"></script>
+    {{ ckeditor.load() }}
 </body>
 
 </html>

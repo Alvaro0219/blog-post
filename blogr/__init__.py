@@ -13,6 +13,10 @@ def create_app():
     #Inicializar bd
     db.init_app(app)
 
+    #Editor de textos para blogs
+    from flask_ckeditor import CKEditor
+    ckeditor = CKEditor(app)
+
     #Registrar vistas
     from blogr import home
     app.register_blueprint(home.bp)
