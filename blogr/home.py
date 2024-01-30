@@ -24,6 +24,7 @@ def index():
         return render_template('index.html', posts=posts, get_user=get_user, value = value)
 
     return render_template('index.html', posts=posts, get_user=get_user)
+
 @bp.route('/blog/<url>')
 def blog(url):
     post = Post.query.filter_by(url = url).first()
