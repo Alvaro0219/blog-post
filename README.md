@@ -28,7 +28,7 @@ BlogPosts es una aplicación web que permite a los usuarios registrados crear y 
 ## Requisitos de Instalación
 
 # Clona el repositorio
-git clone https://github.com/tuusuario/BlogPosts.git
+git clone https://github.com/Alvaro0219/blog-post
 
 # Navega al directorio del proyecto
 cd BlogPosts
